@@ -8,12 +8,13 @@ namespace MyStack.Types
     {
         private readonly int maxSize;
 
-        private Array items;
+        private T[] items;
         private int index;
 
+        private bool isEmpty => Count < 1;
         private bool isOverflow => Count > maxSize;
 
-        public int Count => index + 1;
+        public int Count => index;
 
         public ArrayStack(int size)
         {
@@ -34,10 +35,20 @@ namespace MyStack.Types
         }
         public T Peek()
         {
+            if (isEmpty)
+            {
+                throw new InvalidOperationException("Стек пуст.");
+            }
+
             return items[index - 1];
         }
         public T Pop()
         {
+            if (isEmpty)
+            {
+                throw new InvalidOperationException("Стек пуст.");
+            }
+
             var item = items[index - 1];
 
             items[index - 1] = default;
